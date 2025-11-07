@@ -3,6 +3,115 @@ import {nanoid} from 'nanoid'
 const COLOR_TYPE_SCALE = 'scale'
 
 // Color Palettes
+export const LINE_COLORS_THN_HCS_REGULATION = [
+  {
+    type: COLOR_TYPE_SCALE,
+    hex: '#800000',
+    id: 'отклонение подачи контура',
+    name: 'Thn HSC: regulator palette',
+    value: 0,
+  },
+  {
+    type: COLOR_TYPE_SCALE,
+    hex: '#FF0000',
+    id: 'регулятор-подача контура',
+    name: 'Thn HSC: regulator palette',
+    value: 0,
+  },
+  {
+    type: COLOR_TYPE_SCALE,
+    hex: '#FF9080',
+    id: 'расчетная подача контура',
+    name: 'Thn HSC: regulator palette',
+    value: 0,
+  },
+  {
+    type: COLOR_TYPE_SCALE,
+    hex: '#00FF00',
+    // пробел в конце важен
+    id: 'температура ',
+    name: 'Thn HSC: regulator palette',
+    value: 0,
+  },
+  {
+    type: COLOR_TYPE_SCALE,
+    hex: '#FFFFFF',
+    id: 'улица',
+    name: 'Thn HSC: regulator palette',
+    value: 0,
+  },
+  {
+    type: COLOR_TYPE_SCALE,
+    hex: '#8000FF',
+    id: 'регулятор-длительность импульса привода вентиля подмеса',
+    name: 'Thn HSC: regulator palette',
+    value: 0,
+  },
+  {
+    type: COLOR_TYPE_SCALE,
+    hex: '#FF20FF',
+    id: 'ограниченная длительность импульса привода вентиля подмеса',
+    name: 'Thn HSC: regulator palette',
+    value: 0,
+  },
+  {
+    type: COLOR_TYPE_SCALE,
+    hex: '#2040FF',
+    id: 'закрыт полностью',
+    name: 'Thn HSC: regulator palette',
+    value: 0,
+  },
+  {
+    type: COLOR_TYPE_SCALE,
+    hex: '#A06000',
+    id: 'газовый, ГВС',
+    name: 'Thn HSC: regulator palette',
+    value: 0,
+  },
+  {
+    type: COLOR_TYPE_SCALE,
+    hex: '#FFFF40',
+    id: 'газовый, отопление',
+    name: 'Thn HSC: regulator palette',
+    value: 0,
+  },
+  {
+    type: COLOR_TYPE_SCALE,
+    hex: '#008040',
+    id: 'электрический',
+    name: 'Thn HSC: regulator palette',
+    value: 0,
+  },
+  {
+    type: COLOR_TYPE_SCALE,
+    hex: '#FF0000',
+    id: 'температура-подача контура 1-го этажа',
+    name: 'Thn HSC: regulator palette',
+    value: 0,
+  },
+  {
+    type: COLOR_TYPE_SCALE,
+    hex: '#FF8000',
+    id: 'температура-подача контура 2-го этажа',
+    name: 'Thn HSC: regulator palette',
+    value: 0,
+  },
+  {
+    type: COLOR_TYPE_SCALE,
+    hex: '#FF40B0',
+    id: 'температура-подача первичного контура',
+    name: 'Thn HSC: regulator palette',
+    value: 0,
+  },
+  {
+    type: COLOR_TYPE_SCALE,
+    hex: '#00FFD0',
+    id: 'уставка температуры',
+    name: 'Thn HSC: regulator palette',
+    value: 0,
+  },
+]
+
 export const LINE_COLORS_A = [
   {
     type: COLOR_TYPE_SCALE,
@@ -436,6 +545,7 @@ export const LINE_COLORS_BLIND_LIGHT = [
 export const DEFAULT_LINE_COLORS = LINE_COLORS_A
 
 export const LINE_COLOR_SCALES = [
+  LINE_COLORS_THN_HCS_REGULATION,
   LINE_COLORS_A,
   LINE_COLORS_B,
   LINE_COLORS_C,
@@ -454,7 +564,7 @@ export const LINE_COLOR_SCALES = [
 ].map(colorScale => {
   const name = colorScale[0].name
   const colors = colorScale
-  const id = colorScale[0].id
+  const id = nanoid(); // colorScale[0].id
 
   return {name, colors, id}
 })

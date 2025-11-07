@@ -155,33 +155,24 @@ export const generateSeriesToColorHex = (
   columnGroupMap,
   properties: XYViewProperties
 ) => {
-  const cache = {}
   const seriesToColorHex = {}
+  let colors
+  if (Array.isArray(properties.colors) && properties.colors.length) {
+    // takes care of when properties.colors is NOT undefined, and NOT an empty array
+    colors = properties.colors
+  } else {
+    // when array is undefined or array IS empty.
+    colors = DEFAULT_LINE_COLORS
+  }
+  const fillScale = getNominalColorScale(columnGroupMap, colors.map(value => value.hex))
   columnGroupMap.mappings.forEach((graphLine, colorIndex) => {
-    const id = getSeriesId(graphLine, columnGroupMap.columnKeys)
-    let colors
-    if (Array.isArray(properties.colors) && properties.colors.length) {
-      // takes care of when properties.colors is NOT undefined, and NOT an empty array
-      colors = properties.colors
+    const id = getSeriesId(graphLine, columnGroupMap.columnKeys);
+    const bindColor = colors.find(c => id.indexOf(c.id) >= 0);
+    if (bindColor) {
+      seriesToColorHex[id] = bindColor.hex;
     } else {
-      // when array is undefined or array IS empty.
-      colors = DEFAULT_LINE_COLORS
+      seriesToColorHex[id] = fillScale(colorIndex)
     }
-    const colorsHexArray = colors.map(value => value.hex)
-    const key = colorsHexArray.join('')
-    let fillScale
-    if (cache[key]) {
-      fillScale = cache[key]
-    } else {
-      /**
-       * this is an expensive operation to perform, so we want to cache the result and use the returned function
-       * Since the size of the columnGroupMap is the same in the context of each function, we can rely upon the
-       * colorsHexArray as our unique key identifier and rely upon that for caching the reuslts
-       */
-      fillScale = getNominalColorScale(columnGroupMap, colorsHexArray)
-      cache[key] = fillScale
-    }
-    seriesToColorHex[id] = fillScale(colorIndex)
   })
 
   return seriesToColorHex
